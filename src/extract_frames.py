@@ -1,8 +1,12 @@
 import cv2
 import os
 
-video_path = "data/raw/videos/park/park_test.MOV"
-save_dir = "data/dataset/images/test"
+
+place_name = "park"
+folder_name = "val"
+
+video_path = f"../data/raw/videos/park/{place_name}_{folder_name}.MOV"
+save_dir = f"../data/dataset/images/{folder_name}"
 
 os.makedirs(save_dir, exist_ok=True)
 
@@ -20,7 +24,7 @@ while True:
         break
 
     if frame_count % interval == 0:
-        filename = f"{save_dir}/image_{save_count:04d}.jpg"
+        filename = f"{save_dir}/{place_name}_{folder_name}_{save_count:04d}.jpg"
         cv2.imwrite(filename, frame)
         save_count += 1
 
