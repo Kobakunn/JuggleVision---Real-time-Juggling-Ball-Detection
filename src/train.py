@@ -13,7 +13,7 @@ model = YOLO("yolo11n.pt")
 
 results = model.train(
     data=str(DATA_YAML),
-    epochs=10,
+    epochs=50,
     imgsz=640,
     batch=4,
     device="cpu",

@@ -1,13 +1,11 @@
 from pathlib import Path
 
-name = "train"
-
-folder = Path(f"../data/dataset/labels/{name}")
+folder = Path("../data/dataset/labels/train")
 
 for file in folder.glob("*.txt"):
-    new_name = file.name.split("-", 1)[1]
-    new_path = file.with_name(new_name)
+    prefix, sep, suffix = file.name.partition("-")
 
-    file.rename(new_path)
+    if sep == "":
+        continue
 
-print("ファイル名の変更が完了しました")
+    file.rename(file.with_name(suffix))

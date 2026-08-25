@@ -2,10 +2,10 @@ import cv2
 import os
 
 
-place_name = "park"
+place_name = "indoor"
 folder_name = "val"
 
-video_path = f"../data/raw/videos/park/{place_name}_{folder_name}.MOV"
+video_path = f"../data/raw/videos/{place_name}/{place_name}_{folder_name}.MOV"
 save_dir = f"../data/dataset/images/{folder_name}"
 
 os.makedirs(save_dir, exist_ok=True)
