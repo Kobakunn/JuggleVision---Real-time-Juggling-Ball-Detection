@@ -2,8 +2,8 @@ import cv2
 import os
 
 
-place_name = "indoor"
-folder_name = "val"
+place_name = "whitewall"
+folder_name = "train"
 
 video_path = f"../data/raw/videos/{place_name}/{place_name}_{folder_name}.MOV"
 save_dir = f"../data/dataset/images/{folder_name}"
