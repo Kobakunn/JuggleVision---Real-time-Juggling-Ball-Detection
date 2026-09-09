@@ -9,7 +9,7 @@ MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
     / "detect"
-    / "train"
+    / "train-2"
     / "weights"
     / "best.pt"
 )
@@ -23,6 +23,7 @@ metrics = model.val(
     data=str(DATA_YAML),
     split="test",
     device="cpu",
+    project=str(PROJECT_ROOT / "runs")
 )
 
 

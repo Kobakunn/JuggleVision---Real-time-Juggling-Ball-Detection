@@ -15,8 +15,9 @@ results = model.train(
     data=str(DATA_YAML),
     epochs=50,
     imgsz=640,
-    batch=64,
+    batch=4,
     device="cpu",
     project=str(RUNS_DIR),
     name="train",
+    patience=10
 )

@@ -1,6 +1,5 @@
 from pathlib import Path
 import random
-import math
 
 import cv2
 from pythonosc.udp_client import SimpleUDPClient
@@ -47,79 +46,11 @@ client = SimpleUDPClient(
 # カメラ
 # =========================
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(0, cv2.CAP_DSHOW)
 
 if not cap.isOpened():
     print("カメラを開けませんでした。")
     exit()
-
-
-# =========================
-# パーティクル
-# =========================
-
-particles = []
-
-
-class Particle:
-
-    def __init__(
-        self,
-        x,
-        y,
-        vx,
-        vy,
-        size,
-    ):
-
-        self.x = x
-        self.y = y
-
-        self.vx = vx
-        self.vy = vy
-
-        self.size = size
-
-        self.life = 255
-
-
-    def update(self):
-
-        self.x += self.vx
-        self.y += self.vy
-
-        # 少しずつ減衰
-        self.vx *= 0.98
-        self.vy *= 0.98
-
-        self.life -= 5
-
-
-    def draw(self, frame):
-
-        if self.life <= 0:
-            return
-
-        current_size = max(
-            1,
-            int(self.size * self.life / 255)
-        )
-
-        cv2.circle(
-            frame,
-            (
-                int(self.x),
-                int(self.y),
-            ),
-            current_size,
-            (255, 255, 255),
-            -1,
-        )
-
-
-    def dead(self):
-
-        return self.life <= 0
 
 
 # =========================
@@ -286,81 +217,6 @@ def draw_fire(
 
 
 # =========================
-# パーティクル生成
-# =========================
-
-def create_particles(
-    center_x,
-    center_y,
-    size,
-):
-
-    # 発生量
-    particle_probability = 0.7
-
-    if random.random() > particle_probability:
-        return
-
-
-    # 1フレームの個数
-
-    count = random.randint(
-        4,
-        6,
-    )
-
-
-    for _ in range(count):
-
-        angle = random.uniform(
-            0,
-            math.pi * 2,
-        )
-
-        speed = random.uniform(
-            0.5,
-            2.0,
-        )
-
-
-        particle_size = max(
-            1,
-            size * 0.15,
-        )
-
-
-        particles.append(
-            Particle(
-                center_x,
-                center_y,
-                math.cos(angle) * speed,
-                math.sin(angle) * speed,
-                particle_size,
-            )
-        )
-
-
-# =========================
-# パーティクル更新
-# =========================
-
-def update_particles(frame):
-
-    for particle in particles[:]:
-
-        particle.update()
-
-        particle.draw(frame)
-
-
-        if particle.dead():
-
-            particles.remove(
-                particle
-            )
-
-
-# =========================
 # メインループ
 # =========================
 
@@ -499,14 +355,6 @@ while True:
                 size,
             )
 
-            # パーティクル生成
-
-            create_particles(
-                center_x,
-                center_y,
-                size,
-            )
-
 
             # =========================
             # Bounding Box
@@ -571,15 +419,6 @@ while True:
     # =========================
 
     balls = balls[:3]
-
-
-    # =========================
-    # パーティクル更新
-    # =========================
-
-    update_particles(
-        frame
-    )
 
 
     # =========================

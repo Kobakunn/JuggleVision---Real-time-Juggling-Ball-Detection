@@ -9,7 +9,7 @@ MODEL_PATH = (
     PROJECT_ROOT
     / "runs"
     / "detect"
-    / "train"
+    / "train-2"
     / "weights"
     / "best.pt"
 )
